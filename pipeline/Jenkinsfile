@@ -15,11 +15,7 @@ pipeline {
             steps {
                 dir("/var/lib/jenkins/workspace/new/") {
                 sh 'rm -rf spring-petclinic | true'
-                sh 'pwd'
                 sh 'git clone https://github.com/spring-projects/spring-petclinic.git'
-                sh 'cd spring-petclinic'
-                sh 'pwd'
-                sh 'ls -lhrt'
                 sh 'cd spring-petclinic && ./mvnw package'
                 }
             }
