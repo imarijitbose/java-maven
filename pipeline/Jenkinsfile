@@ -1,0 +1,29 @@
+pipeline {
+    agent any
+    tools {
+        maven "maven-3.8.2"
+        jdk "JDK"
+    }
+    stages {
+        stage('Initialize'){
+            steps{
+                echo "PATH = ${M2_HOME}/bin:${PATH}"
+                echo "M2_HOME = /opt/maven"
+            }
+        }
+        stage('Build') {
+            steps {
+                dir("/var/lib/jenkins/workspace/new/") {
+                sh 'rm -rf spring-petclinic | true'
+                sh 'git clone https://github.com/spring-projects/spring-petclinic.git'
+                sh 'cd spring-petclinic && ./mvnw package'
+                }
+            }
+        }
+     }
+    post {
+       always {
+       cleanWs()
+      }
+   } 
+}
